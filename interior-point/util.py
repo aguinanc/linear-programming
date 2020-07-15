@@ -21,7 +21,7 @@ def processa_argumentos(input_args, desc=''):
     parser = argparse.ArgumentParser(usage=usage_str+'\n\n'+desc+'\n\n'+file_help)
     parser.add_argument('-f', action="store", dest="input_file", type=str, default='input.txt', help="nome do arquivo de entrada, default='input.txt'")
     parser.add_argument('-m', action="store", dest="big_m_value", type=float, default='0', help="valor de Big-M")
-    parser.add_argument('--auto-big-m', action="store_true", help="calcula Big-M automaticamente")
+    parser.add_argument('--auto-big-m', action="store_true", dest="auto_big_m", help="calcula Big-M automaticamente")
     # le argumentos e escreve nas variaveis
     args = parser.parse_args(input_args[1:])
     return args
@@ -78,7 +78,7 @@ def le_arquivo_pl(nome_arquivo):
             return (-1, -1, [[]], [], [])
         # deixa apenas caracteres a direita
         # do sinal de igualdade em cada item
-        dados_filtrados = [s.lstrip(s.replace('=','')).replace('=','') for s in dados_filtrados]
+        dados_filtrados = [s[0].lstrip(s[0].replace('=','')).replace('=','') for s in dados_filtrados]
         # transfere dimensoes da matriz A para variaveis de saida
         m = int(dados_filtrados[0])
         n = int(dados_filtrados[1])

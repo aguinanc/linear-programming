@@ -9,33 +9,52 @@ import util
 import scipy
 import scipy.linalg
 
-#############################################################################
+#######################################################################
+# Apresentacao para usuario
+print('\n\n')
+print('                Algoritmo\n')
+print('                Primal Afim-Escala\n')
+print('                ----------------------------\n\n\n')
+
+#######################################################################
+# Constantes
+
+fator_big_m = 1000
+
+#######################################################################
 # Tratamento de entradas
 
 # Trata argumentos
 opcoes = util.processa_argumentos(sys.argv, 'Primal Afim-Escala')
-# Extrai matrizes de arquivo de entrada
-#A, b, c = util.le_arquivo_pl(opcoes.input_file)
 
-#############  PARA DEBUG APENAS ############
-# !  !  !  !                       !  !  !  !
+valor_big_m = opcoes.big_m_value
+auto_big_m = opcoes.auto_big_m
 
-n = 7
-m = 3
-e = 0.0001
-tau = 0.99
+# Extrai dados de arquivo de entrada
+m, n, A, b, c = util.le_arquivo_pl(opcoes.input_file)
 
-c = np.array([0, 0, 0, -0.75, 20, -0.5, 6])
-b = np.array([0, 0, 1])
-A = np.array([[1, 0, 0, 0.25, -8, -1, 9], [0, 1, 0, 0.5, -12, -0.5, 3], [0, 0, 1, 0, 0, 1, 0]])
+# debug
+#print('m= '+str(m)+'\n')
+#print('n= '+str(n)+'\n')
+#print('A= '+str(A)+'\n')
+#print('b= '+str(b)+'\n')
+#print('c= '+str(c)+'\n')
+#sys.exit()
 
-fator_big_m = 1000
-valor_big_m = 1000
-auto_big_m = True
+# Obtem 'e' e 'tau' do usuario
+e = float(input("Informe o valor de 'e': "))
+print('\n')
+tau = float(input("Informe o valor de 'tau': "))
+print('\n')
 
-##############################################
+#e = 0.0001
+#tau = 0.99
 
-#############################################################################
+#c = np.array([0, 0, 0, -0.75, 20, -0.5, 6])
+#b = np.array([0, 0, 1])
+#A = np.array([[1, 0, 0, 0.25, -8, -1, 9], [0, 1, 0, 0.5, -12, -0.5, 3], [0, 0, 1, 0, 0, 1, 0]])
+
+#######################################################################
 # Algoritmo Primal Afim-Escala
 
 # Escolhe-se inicialmente x0 = [1,1,...,1]
@@ -45,10 +64,7 @@ x0 = np.ones(n)
 p = b - np.dot(A, x0)
 # transforma p em uma matrix de 1 coluna
 p = p.reshape(-1, 1)
-### debug
-print('p=\n')
-print(p)
-#-------
+
 big_m = False
 for i in range(0, m):
     if (p[i,0] != 0):
