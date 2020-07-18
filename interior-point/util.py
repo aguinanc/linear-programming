@@ -20,7 +20,7 @@ def processa_argumentos(input_args, desc=''):
     # configuracao do parser
     parser = argparse.ArgumentParser(usage=usage_str+'\n\n'+desc+'\n\n'+file_help)
     parser.add_argument('-f', action="store", dest="input_file", type=str, default='input.txt', help="nome do arquivo de entrada, default='input.txt'")
-    parser.add_argument('-m', action="store", dest="big_m_value", type=float, default='0', help="valor de Big-M")
+    parser.add_argument('-m', action="store", dest="big_m_value", type=float, default=1000000, help="valor de Big-M")
     parser.add_argument('--auto-big-m', action="store_true", dest="auto_big_m", help="calcula Big-M automaticamente")
     # le argumentos e escreve nas variaveis
     args = parser.parse_args(input_args[1:])
@@ -34,6 +34,38 @@ def print_info_iter_pae(iter_cnt, X, valor_obj, gap, var, e, deltat, totalt):
         print('x'+str(cnt)+'= '+str(X[i,i])+'\n')
         cnt += 1
     print('Detalhes: valor funcao objetivo='+str(valor_obj)+'\tgap rel='+str(gap)+'\tvariacao da func. obj.='+str(var)+'\tConvergencia p/ e<='+str(e)+'\n')
+    print('Duracao da iteracao='+str(deltat)+'\tTempo total='+str(totalt)+'\n')
+    print("\n\n")
+    return
+
+''' Func: Exibe resultados de uma iteracao PDC '''
+def print_info_iter_pdc(iter_cnt, xk, zk, yk, rp, rd, rc, F2, e, deltat, totalt):
+    print('---- iteracao '+str(iter_cnt)+' ----------------\n')
+    cnt = 1
+    for i in range(0, len(xk)):
+        print('x'+str(cnt)+'= '+str(xk[i])+'\n')
+        cnt += 1
+    cnt = 1
+    for i in range(0, len(zk)):
+        print('z'+str(cnt)+'= '+str(zk[i])+'\n')
+        cnt += 1
+    cnt = 1
+    for i in range(0, len(yk)):
+        print('z'+str(cnt)+'= '+str(yk[i])+'\n')
+        cnt += 1
+    print('Detalhes: rp='+str(rp)+'\nrd='+str(rd)+'\nrc='+str(rc)+'\nF2='+str(F2)+'\te='+str(e)+'\n')
+    print('Duracao da iteracao='+str(deltat)+'\tTempo total='+str(totalt)+'\n')
+    print("\n\n")
+    return
+
+''' Func: Exibe resultados de uma iteracao BL '''
+def print_info_iter_bl(iter_cnt, X, valor_obj, delta_cx, delta_dx, e, deltat, totalt):
+    print('---- iteracao '+str(iter_cnt)+' ----------------\n')
+    cnt = 1
+    for i in range(0, X.shape[0]):
+        print('x'+str(cnt)+'= '+str(X[i,i])+'\n')
+        cnt += 1
+    print('Detalhes: valor funcao objetivo='+str(valor_obj)+'\tdelta c*x='+str(delta_cx)+'\ndelta dx='+str(delta_dx)+'\nepsilon='+str(e)+'\n')
     print('Duracao da iteracao='+str(deltat)+'\tTempo total='+str(totalt)+'\n')
     print("\n\n")
     return
