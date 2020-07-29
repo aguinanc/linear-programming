@@ -39,7 +39,7 @@ def print_info_iter_pae(iter_cnt, X, valor_obj, gap, var, e, deltat, totalt):
     return
 
 ''' Func: Exibe resultados de uma iteracao PDC '''
-def print_info_iter_pdc(iter_cnt, xk, zk, yk, rp, rd, rc, F2, e, deltat, totalt):
+def print_info_iter_pdc(iter_cnt, xk, zk, yk, rp, rd, rc, F2, e, objective, deltat, totalt):
     print('---- iteracao '+str(iter_cnt)+' ----------------\n')
     cnt = 1
     for i in range(0, len(xk)):
@@ -53,7 +53,7 @@ def print_info_iter_pdc(iter_cnt, xk, zk, yk, rp, rd, rc, F2, e, deltat, totalt)
     for i in range(0, len(yk)):
         print('z'+str(cnt)+'= '+str(yk[i])+'\n')
         cnt += 1
-    print('Detalhes: rp='+str(rp)+'\nrd='+str(rd)+'\nrc='+str(rc)+'\nF2='+str(F2)+'\te='+str(e)+'\n')
+    print('Detalhes: rp='+str(rp)+'\nrd='+str(rd)+'\nrc='+str(rc)+'\nF2='+str(F2)+'\te='+str(e)+'\tc*x='+str(objective)+'\n')
     print('Duracao da iteracao='+str(deltat)+'\tTempo total='+str(totalt)+'\n')
     print("\n\n")
     return
