@@ -117,22 +117,14 @@ while True:
     ck = np.dot(Xk, c)
     # transforma ck em vetor coluna
     ck = ck.reshape(-1, 1)
-    print('Xk= '+str(Xk)+'\n')
-    print('ck= '+str(ck)+'\n')
     # calcula Ak = A*Xk
     Ak = np.dot(A, Xk)
-    print('Ak= '+str(Ak)+'\n')
     # calcula (Ak)^t
     Akt = np.transpose(Ak)
-    print('Akt= '+str(Akt)+'\n')
     # resolve Pk = I - (Ak)^t [Ak(Ak)^t]^-1 *Ak
     Pk = np.identity(n, dtype=float) - np.dot(np.dot(Akt, np.linalg.inv(np.dot(Ak, Akt))), Ak)
-    print('Pk= '+str(Pk)+'\n')
-    print('np.dot(Xk, Pk)= '+str(np.dot(Xk, Pk))+'\n')
-    print('ck + mu*np.ones(n).reshape(-1,1)= '+str(ck + mu*np.ones(n).reshape(-1,1))+'\n')
     # resolve dx = Xk*Pk*(ck + mu*e)
     dx = np.dot(np.dot(Xk, Pk), ck + mu*np.ones(n).reshape(-1,1))
-    print('dx= '+str(dx)+'\n')
     # calcula lambdak = min{-xi/dxi}
     lambdak = np.inf
     for i in range(0, n):
