@@ -160,7 +160,7 @@ while True:
             if (p < rhod):
                 rhod = p
     # verifica solucao ilimitada
-    if (rhop == np.inf or rhod == np.inf):
+    if (rhop == np.inf and rhod == np.inf):
         break
     # calcula alphap = min{tau*rhop, 1}
     alphap = tau*rhop
@@ -184,7 +184,7 @@ while True:
     # soma iteracao ao tempo total
     tempo_total += tempo2 - tempo1
     # mostra resultado da iteracao no terminal
-    util.print_info_iter_pdc(iter_cnt,np.diagonal(Xk),np.diagonal(Zk),yk,rp,rd,rc,F2,epsilon,tempo2-tempo1,tempo_total)
+    util.print_info_iter_pdc(iter_cnt,np.diagonal(Xk),np.diagonal(Zk),yk,rp,rd,rc,F2,epsilon,np.dot(np.diagonal(Xk),c),tempo2-tempo1,tempo_total)
 
 # trata solucao obtida
 if (otimo):
