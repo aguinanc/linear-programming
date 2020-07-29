@@ -33,26 +33,11 @@ auto_big_m = opcoes.auto_big_m
 # Extrai dados de arquivo de entrada
 m, n, A, b, c = util.le_arquivo_pl(opcoes.input_file)
 
-# debug
-#print('m= '+str(m)+'\n')
-#print('n= '+str(n)+'\n')
-#print('A= '+str(A)+'\n')
-#print('b= '+str(b)+'\n')
-#print('c= '+str(c)+'\n')
-#sys.exit()
-
 # Obtem 'e' e 'tau' do usuario
 e = float(input("Informe o valor de 'e': "))
 print('\n')
 tau = float(input("Informe o valor de 'tau': "))
 print('\n')
-
-#e = 0.0001
-#tau = 0.99
-
-#c = np.array([0, 0, 0, -0.75, 20, -0.5, 6])
-#b = np.array([0, 0, 1])
-#A = np.array([[1, 0, 0, 0.25, -8, -1, 9], [0, 1, 0, 0.5, -12, -0.5, 3], [0, 0, 1, 0, 0, 1, 0]])
 
 #######################################################################
 # Algoritmo Primal Afim-Escala
@@ -68,9 +53,6 @@ p = p.reshape(-1, 1)
 big_m = False
 for i in range(0, m):
     if (p[i,0] != 0):
-        # debug
-        print('big-M = yes\n')
-        # -----
         big_m = True
 
 # faz Big-M se necessario
